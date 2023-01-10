@@ -52,10 +52,6 @@ $ kubectl get namespaces --show-labels
 $ kubectl create -f gdbgui-deployment.yaml
 $ kubectl get deployments -n sample-namespace --show-labels
 $ kubectl delete -f gdbgui-deployment.yaml
-
-$ kubectl create -f gdbgui-service.yaml
-$ kubectl get services
-
 ```
 
 
@@ -68,7 +64,7 @@ $ kubectl get svc -A
 $ minikube addons enable ingress
 $ kubectl get pods -n ingress-nginx
 $ kubectl expose deployment gdbgui-deployment --name=gdbgui-svc --type=NodePort --port=5555 -n sample-namespace
-$ kubectl describe service gdbgui-svc -n sample-namespace
+$ kubectl get service gdbgui-svc -n sample-namespace
 $ kubectl describe service gdbgui-svc -n sample-namespace
 Name:                     gdbgui-svc
 Namespace:                sample-namespace
@@ -89,6 +85,7 @@ External Traffic Policy:  Cluster
 Events:                   <none>
 
 
+
 Take the NodePort
 open http://10.110.223.66:5555/
 
@@ -100,7 +97,6 @@ open http://10.110.223.66:5555/
 #### network tools
 ````
 $ kubectl create -f ntools-deployment.yaml
-$ kubectl get deployments -n sample-namespace --show-labels
 $ kubectl get deployments -n sample-namespace --show-labels
 
 $ kubectl delete -f ntools-deployment.yaml
