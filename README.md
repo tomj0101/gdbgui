@@ -58,19 +58,43 @@ $ kubectl get services
 
 ```
 
-#### Expose port in Minikube
 
-```
+#### Setup ingress in Minikube & expose application to internet
+````
 # minikube tunnel
 $ minikube ip
+$ kubectl get svc -A
 
-$ kubectl expose deployment --type=LoadBalancer --port=8080
+$ minikube addons enable ingress
+$ kubectl get pods -n ingress-nginx
+$ kubectl expose deployment gdbgui-deployment --name=gdbgui-svc --type=NodePort --port=5555 -n sample-namespace
+$ kubectl describe service gdbgui-svc -n sample-namespace
+$ kubectl describe service gdbgui-svc -n sample-namespace
+Name:                     gdbgui-svc
+Namespace:                sample-namespace
+Labels:                   app=gdbgui
+Annotations:              <none>
+Selector:                 app=gdbgui
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.110.223.66
+IPs:                      10.110.223.66
+Port:                     <unset>  5555/TCP
+TargetPort:               5555/TCP
+NodePort:                 <unset>  31442/TCP
+Endpoints:                172.17.0.5:5555
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
 
-kubectl expose deployment/gdbgui-deployment --port=80 --type=LoadBalancer
 
-open http://localhost:5555/
+Take the NodePort
+open http://10.110.223.66:5555/
 
-```
+````
+
+
 
 
 #### network tools
