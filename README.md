@@ -50,10 +50,10 @@ $ minikube start
 $ minikube dashboard
 
 
-$ kubectl create -f sample-namespace.yaml
+$ kubectl apply -f sample-namespace.yaml
 $ kubectl get namespaces --show-labels
 
-$ kubectl create -f gdbgui-deployment.yaml
+$ kubectl apply -f gdbgui-deployment.yaml
 $ kubectl get deployments -n sample-namespace --show-labels
 $ kubectl delete -f gdbgui-deployment.yaml
 ```
