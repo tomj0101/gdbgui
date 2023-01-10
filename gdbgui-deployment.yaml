@@ -1,13 +1,19 @@
-apiVersion: apps/v1 
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gdbgui
+  name: gdbgui-deployment
+  namespace: sample-namespace
+  labels:
+    app: gdbgui
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: app1
-      tier: dev-tools
-  replicas: 3
+      app: gdbgui
+  template:
+    metadata:
+      labels:
+        app: gdbgui
     spec:
       containers:
       - name: gdbgui

@@ -23,8 +23,35 @@ Load Binary> /app/samplev2
 ```
 
 
-#### Debugging
+#### Debugging (Dev)
 ```
 (gdb) b main
 (gdb) r
+```
+
+#### Push to your Private or Public containers register (DevOps)
+Docker Hub (docker.io)
+```
+export DOCKER_USER_ID="john"
+# Create repo on dockerhub
+docker tag tomj0101/gdbgui:lasted $DOCKER_USER_ID/gdbgui:lasted
+
+docker login
+docker push $DOCKER_USER_ID/gdbgui:lasted
+```
+
+#### Local k8s deploy in Minikube (DevOps)
+```
+$ minikube start
+$ minikube dashboard
+
+
+$ kubectl create -f sample-namespace.yaml
+$ kubectl get namespaces --show-labels
+
+$ kubectl create -f gdbgui-deployment.yaml
+$ kubectl get deployments -n sample-namespace --show-labels
+
+$ kubectl delete -f gdbgui-deployment.yaml
+
 ```
