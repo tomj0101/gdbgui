@@ -61,14 +61,6 @@ $ kubectl delete -f gdbgui-deployment.yaml
 
 #### Setup ingress in Minikube & expose application to internet
 ````
-# minikube tunnel
-$ minikube ip
-$ kubectl get svc -A
-
-$ minikube addons enable ingress
-$ kubectl get pods -n ingress-nginx
-
-deploy using service yaml
 $ kubectl apply -f gdbgui-service.yaml
 $ kubectl delete -f gdbgui-service.yaml
 
@@ -82,24 +74,26 @@ Selector:                 app=gdbgui
 Type:                     NodePort
 IP Family Policy:         SingleStack
 IP Families:              IPv4
-IP:                       10.99.41.51
-IPs:                      10.99.41.51
-Port:                     <unset>  5555/TCP
+IP:                       10.96.231.13
+IPs:                      10.96.231.13
+Port:                     <unset>  8888/TCP
 TargetPort:               5555/TCP
-NodePort:                 <unset>  31073/TCP
-Endpoints:                172.17.0.5:5555
+NodePort:                 <unset>  31535/TCP
+Endpoints:                172.17.0.9:5555
 Session Affinity:         None
 External Traffic Policy:  Cluster
 Events:                   <none>
 
+
+
 Take the NodePort
-open http://10.98.57.149:8888/
+open http://10.96.231.13:8888/
 
 
 ---- Manual ----
 
 $ kubectl expose deployment gdbgui-deployment --name=gdbgui-service --type=NodePort --port=8888 -n sample-namespace
-$ kubectl delete service gdbgui-services -n sample-namespace
+$ kubectl delete service gdbgui-service -n sample-namespace
 
 
 get the service yaml from the command
@@ -107,6 +101,16 @@ $ kubectl get service gdbgui-services -o yaml -n sample-namespace
 
 
 ````
+
+#### Setup ingress in Minikube & expose application to internet
+````
+# minikube tunnel
+$ minikube ip
+$ kubectl get svc -A
+$ minikube addons disable ingress
+$ minikube addons enable ingress
+$ kubectl get pods -n ingress-nginx
+```
 
 
 
