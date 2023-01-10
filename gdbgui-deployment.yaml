@@ -1,0 +1,16 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: gdbgui
+spec:
+  selector:
+    matchLabels:
+      app: app1
+      tier: dev-tools
+  replicas: 3
+    spec:
+      containers:
+      - name: gdbgui
+        image: tomj0101/gdbgui:lasted
+        ports:
+        - containerPort: 5555
