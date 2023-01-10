@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntools-deployment
+  namespace: sample-namespace
+  labels:
+    app: ntools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ntools
+  template:
+    metadata:
+      labels:
+        app: ntools
+    spec:
+      containers:
+      - name: ntools
+        image: nicolaka/netshoot
+        ports:
+        - containerPort: 50
+        command: ["/bin/bash"]
+        args: ["-c", "while true; do ping localhost; sleep 60;done"]

@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: gdbgui
-        image: tomj0101/gdbgui:lasted
+        image: tomasjimenezweb/gdbgui:lasted
         ports:
         - containerPort: 5555

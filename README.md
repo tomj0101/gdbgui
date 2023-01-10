@@ -51,7 +51,53 @@ $ kubectl get namespaces --show-labels
 
 $ kubectl create -f gdbgui-deployment.yaml
 $ kubectl get deployments -n sample-namespace --show-labels
-
 $ kubectl delete -f gdbgui-deployment.yaml
 
+$ kubectl create -f gdbgui-service.yaml
+$ kubectl get services
+
 ```
+
+#### Expose port in Minikube
+
+```
+# minikube tunnel
+$ minikube ip
+
+$ kubectl expose deployment --type=LoadBalancer --port=8080
+
+kubectl expose deployment/gdbgui-deployment --port=80 --type=LoadBalancer
+
+open http://localhost:5555/
+
+```
+
+
+#### network tools
+````
+$ kubectl create -f ntools-deployment.yaml
+$ kubectl get deployments -n sample-namespace --show-labels
+$ kubectl get deployments -n sample-namespace --show-labels
+
+$ kubectl delete -f ntools-deployment.yaml
+
+get the pods internal IP inside the cluster.
+$ kubectl get pods -n sample-namespace -o wide
+NAME                                 READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+gdbgui-deployment-66b4547db4-zx8jh   1/1     Running   0          27m     172.17.0.5   minikube   <none>           <none>
+ntools-deployment-57b696dfb6-zzmmn   1/1     Running   0          4m12s   172.17.0.6   minikube   <none>           <none>
+
+$ kubectl get pod -n sample-namespace ntools-deployment-57b696dfb6-zzmmn
+$ kubectl describe pod -n sample-namespace ntools-deployment-57b696dfb6-zzmmn
+
+exec remote command
+$ kubectl exec -it -n sample-namespace ntools-deployment-57b696dfb6-zzmmn -- /bin/bash  -c "ip addr show"
+
+login into the pod
+$ kubectl exec -it -n sample-namespace ntools-deployment-57b696dfb6-zzmmn -- /bin/bash
+
+
+(pod ntool) $ ip addr show
+(pod ntool) $ ping 172.17.0.5
+(pod ntool) $ curl 172.17.0.5:5555
+````
