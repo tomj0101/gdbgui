@@ -5,6 +5,7 @@ Docker images for Test load balancer
 ```
 npm install
 node app.js
+open http://localhost:8888/v3/ui
 open http://localhost:8888/v3/app
 
 
@@ -12,6 +13,12 @@ npm install --save docker-container-id
 npm install --save express
 npm install --save body-parser
 npm install --save cors
+
+Embedded JavaScript templating.
+https://ejs.co/
+npm install --save ejs
+
+npm install nodemon --save-dev
 
 ```
 
@@ -22,8 +29,6 @@ Docker Hub (docker.io)
 ```
 docker build -t tomj0101/lbtester:lasted -f Dockerfile.lbtester .
 Create repo on dockerhub > https://hub.docker.com/repository
-
-docker push tomj0101/lbtester:lasted
 
 docker images
 
@@ -41,7 +46,11 @@ docker run -p 8888:8888 tomj0101/lbtester:lasted
 #### Local Deploy in Kubernetes (MiniKube)
 ```
 kubectl apply -f lbtester-deployment.yaml
+kubectl delete -f lbtester-deployment.yaml
+
 kubectl apply -f lbtester-service.yaml
+kubectl delete -f lbtester-service.yaml
+
 kubectl describe service lbtester-service -n sample-namespace
 Name:                     lbtester-service
 Namespace:                sample-namespace
@@ -63,8 +72,15 @@ Events:                   <none>
 
 
 Take the NodePort
+open http://10.109.94.186:4444/v3/ui
 open http://10.109.94.186:4444/v3/app
 
+
+remove image from CACHE in minikube
+minikube cache delete tomj0101/lbtester
+
+load images from local to minikube
+minikube image load tomj0101/lbtester:lasted
 ```
 
 

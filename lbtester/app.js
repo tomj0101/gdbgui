@@ -21,4 +21,10 @@ app.get('/v3/app', (req, res) => {
   res.json(sys_info);
 });
 
+app.set("view engine", "ejs");
+
+app.get('/v3/ui', (req, res) => {
+  res.render("index",sys_info);
+});
+
 app.listen(port, () => console.log(`Welcome, app listening on port ${port}!`));
