@@ -20,8 +20,8 @@ RUN apk --no-cache add --virtual runtime-dependencies \
 
 WORKDIR /app
 
-COPY samplev1.c /app
-COPY samplev2.cpp /app
+COPY src/samplev1.c /app
+COPY src/samplev2.cpp /app
 
 RUN cd /app && gcc -g samplev1.c -o samplev1 
 RUN cd /app && g++ -g samplev2.cpp -o samplev2

@@ -1,5 +1,6 @@
 # gdbgui-docker
 Docker image for gdbgui.com
+<img height="750px" src="docs/gdbgui-ui.png">
 
 #### Build 
 ```
