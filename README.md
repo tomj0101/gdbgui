@@ -49,6 +49,7 @@ docker push tomj0101/gdbgui:lasted
 ```
 $ minikube start
 $ minikube dashboard
+# minikube tunnel
 
 
 $ kubectl apply -f sample-namespace.yaml
